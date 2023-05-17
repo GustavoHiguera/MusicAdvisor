@@ -6,11 +6,24 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String input;
 
+        boolean authorized = false;
+
         do {
-            System.out.print("> ");
             input = scanner.nextLine();
 
+            if (!authorized && !input.equals("auth") && !input.equals("exit")) {
+                System.out.println("Please, provide access for application.");
+                continue;
+            }
+
             switch (input) {
+                case "auth":
+                    String authLink = "https://accounts.spotify.com/authorize?client_id=9ebd4340f5cc4364a7e327301d7e767d&redirect_uri=http://www.example.com?code=7angkqw2DAsdfkQ&response_type=code";
+                    System.out.println(authLink);
+                    authorized = true;
+                    System.out.println("---SUCCESS---");
+                    break;
+
                 case "new":
                     System.out.println("---NEW RELEASES---");
                     System.out.println("Mountains [Sia, Diplo, Labrinth]");
@@ -35,21 +48,21 @@ public class Main {
                     System.out.println("Latin");
                     break;
 
+                case "playlists":
+                    String category = input.substring("playlists".length()).trim();
+                    System.out.println("---" + category.toUpperCase() + " PLAYLISTS---");
+                    System.out.println("Walk Like A Badass");
+                    System.out.println("Rage Beats");
+                    System.out.println("Arab Mood Booster");
+                    System.out.println("Sunday Stroll");
+                    break;
+
                 case "exit":
                     System.out.println("---GOODBYE!---");
                     break;
 
                 default:
-                    if (input.startsWith("playlists")) {
-                        String category = input.substring("playlists".length()).trim();
-                        System.out.println("---" + category.toUpperCase() + " PLAYLISTS---");
-                        System.out.println("Walk Like A Badass");
-                        System.out.println("Rage Beats");
-                        System.out.println("Arab Mood Booster");
-                        System.out.println("Sunday Stroll");
-                    } else {
-                        System.out.println("Invalid command. Please try again.");
-                    }
+                    System.out.println("Invalid command. Please try again.");
             }
 
         } while (!input.equals("exit"));
